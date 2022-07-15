@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tempcel="clr-namespace:HR.UI"
+             x:Class="HR.UI.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FieldStackStyle" TargetType="StackLayout">
+                <Setter Property="Margin" Value="1"></Setter>
+                <Setter Property="Orientation" Value="Horizontal"></Setter>
+                <Setter Property="Spacing" Value="0"></Setter>
+            </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"></Setter>
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+                <Setter Property="TextDecorations" Value="Underline"></Setter>
+                <Setter Property="Padding" Value="10,5,0,0"></Setter>
+                <Setter Property="Margin" Value="10,0,0,0"></Setter>
+                <Setter Property="HorizontalTextAlignment" Value="Start"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+            <Style x:Key="HelpStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"></Setter>
+                <Setter Property="FontAttributes" Value="Italic"></Setter>
+                <Setter Property="Padding" Value="10,5,0,0"></Setter>
+                <Setter Property="Margin" Value="10,0,0,0"></Setter>
+                <Setter Property="HorizontalTextAlignment" Value="Start"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+        </ResourceDictionary>
+        <DataTemplate x:Key="RadioTemplateNoWidthRequest">
+            <StackLayout Padding="0,2,0,0">
+                <Label
+                                Text="{Binding Title}"
+                                Style="{StaticResource LabelStyle}">
+                    </Label>
+                    <StackLayout 
+                            RadioButtonGroup.GroupName="{Binding ChoiceList.Code}"
+                            RadioButtonGroup.SelectedValue="{Binding Value}"
+                            BindableLayout.ItemsSource="{Binding ChoiceList.Choices}"
+                            BindableLayout.EmptyView="No choices available"                            
+                            Orientation="Horizontal"
+                            Margin="10,0,0,0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton Value="{Binding Value}"
+                                        Content="{Binding Label}"                                        
+                                        IsChecked="{Binding IsSelected}"
+                                        VerticalOptions="Center"
+                                        IsClippedToBounds="False"
+                                        HeightRequest="27"
+                                        HorizontalOptions="Start">
+                            </RadioButton>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>            
+        </DataTemplate>
+        <DataTemplate x:Key="RadioTemplateWidthRequest">
+            <StackLayout Padding="0,2,0,0">
+                     <Label
+                                Text="{Binding Title}"
+                                Style="{StaticResource LabelStyle}">
+                    </Label>
+                    <StackLayout 
+                            RadioButtonGroup.GroupName="{Binding ChoiceList.Code}"
+                            RadioButtonGroup.SelectedValue="{Binding Value}"
+                            BindableLayout.ItemsSource="{Binding ChoiceList.Choices}"
+                            BindableLayout.EmptyView="No choices available"                            
+                            Orientation="Horizontal"
+                            Margin="10,0,0,0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton Value="{Binding Value}"
+                                        Content="{Binding Label}"                                        
+                                        IsChecked="{Binding IsSelected}"
+                                        VerticalOptions="Center"
+                                        IsClippedToBounds="False"
+                                        HeightRequest="27"
+                                        WidthRequest="150"
+                                        HorizontalOptions="Start">
+                            </RadioButton>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="RadioTemplateVertical">
+            <StackLayout Padding="0,2,0,0">
+                <Label
+                                Text="{Binding Title}"
+                                Style="{StaticResource LabelStyle}">
+                    </Label>
+                    <StackLayout 
+                            RadioButtonGroup.GroupName="{Binding ChoiceList.Code}"
+                            RadioButtonGroup.SelectedValue="{Binding Value}"
+                            BindableLayout.ItemsSource="{Binding ChoiceList.Choices}"
+                            BindableLayout.EmptyView="No choices available"                            
+                            Orientation="Vertical"
+                            Margin="10,0,0,0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton Value="{Binding Value}"
+                                        Content="{Binding Label}"                                        
+                                        IsChecked="{Binding IsSelected}"
+                                        VerticalOptions="Center"
+                                        IsClippedToBounds="False">
+                            </RadioButton>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </DataTemplate>
+        <tempcel:FieldDataTemplateSelector
+            x:Key="templateSelector"
+            RadioTemplateNoWidthRequest="{StaticResource RadioTemplateNoWidthRequest}"
+            RadioTemplateWidthRequest="{StaticResource RadioTemplateWidthRequest}"
+            RadioTemplateVertical="{StaticResource RadioTemplateVertical}">
+        </tempcel:FieldDataTemplateSelector>
+    </ContentPage.Resources>
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                        Text="Horizontal Radio Test" 
+                        HorizontalTextAlignment="Start"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalTextAlignment="Center"
+                        TextColor="White" 
+                        FontSize="Large"/>
+                    <Button Text="Back" Clicked="BackButton_Clicked" HorizontalOptions="End" />
+                </StackLayout>
+
+                <Label 
+                    Padding="0,2,0,0"
+                    Text="Sample to show horizontal stack layout doesn't display radio buttons unless width request is applied" 
+                    HorizontalTextAlignment="Start" 
+                    TextColor="White" 
+                    FontSize="Micro" />
+            </StackLayout>
+        </Frame>
+        <Label
+            Margin="10,0,0,0"
+                Grid.Column="0"
+                Text="Change the RadioTemplateNoWidthRequest to add a width request or change to vertical to verify data is displayed."
+                HorizontalOptions="Start"
+                FontSize="Micro"/>
+        <CollectionView 
+            ItemsSource="{Binding MainPageView.Fields}"                        
+            EmptyView="No fields for this screen."
+            ItemTemplate="{StaticResource templateSelector}">
+        </CollectionView>
+    </StackLayout>
+
+</ContentPage>
